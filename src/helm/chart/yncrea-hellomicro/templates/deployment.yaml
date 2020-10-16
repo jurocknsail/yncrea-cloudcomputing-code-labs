@@ -38,6 +38,9 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+            - name: remote-debug
+              containerPort: 8000
+              protocol: TCP
       volumes:
         - name: yncrea-hellomicro-secret
           secret:

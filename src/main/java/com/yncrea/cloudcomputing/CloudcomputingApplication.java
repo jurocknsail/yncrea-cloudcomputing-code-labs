@@ -29,6 +29,12 @@ public class CloudcomputingApplication {
 		return "Secret : " + secret;
 	}
 
+	@RequestMapping("/new")
+	@ResponseBody
+	public String newApi() {
+		return "Hello from new API ";
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(CloudcomputingApplication.class, args);
 	}

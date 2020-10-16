@@ -25,6 +25,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.kiwigrid</groupId>
+			<artifactId>helm-maven-plugin</artifactId>
+			<version>5.4</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>io.fabric8</groupId>
 			<artifactId>docker-maven-plugin</artifactId>
 			<version>0.33.0</version>
@@ -76,6 +83,70 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.kiwigrid</groupId>
+				<artifactId>helm-maven-plugin</artifactId>
+				<version>5.4</version>
+				<configuration>
+					<chartDirectory>${project.basedir}/src/helm/chart/yncrea-hellomicro</chartDirectory>
+					<chartVersion>${project.version}</chartVersion>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<!-- This is the related section to use local binary with auto-detection enabled. -->
+					<useLocalHelmBinary>true</useLocalHelmBinary>
+				</configuration>
+				<executions>
+					<execution>
+						<id>helm-lint</id>
+						<phase>test</phase>
+						<goals>
+							<goal>lint</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>helm-package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>exec-helm-delete</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<executable>helm</executable>
+							<commandlineArgs>delete silly-unicorn --purge</commandlineArgs>
+							<successCodes>
+								<successCode>0</successCode>
+								<successCode>1</successCode>
+							</successCodes>
+						</configuration>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>exec-helm-install</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<executable>helm</executable>
+							<commandlineArgs>install ${project.build.directory}/${project.artifactId}-${project.version}.tgz --name silly-unicorn --wait --debug</commandlineArgs>
+						</configuration>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

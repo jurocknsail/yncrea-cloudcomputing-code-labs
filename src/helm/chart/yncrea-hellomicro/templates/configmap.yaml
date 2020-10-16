@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: yncrea-hellomicro-configmap
 data:
-  greeting: "from the Configmap after Upgrade !"
+  greeting: "from the Configmap"
