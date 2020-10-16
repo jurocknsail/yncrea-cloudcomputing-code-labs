@@ -26,6 +26,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: jurocknsail/yncrea-hellomicro
+          repository: your_docker_id/yncrea-hellomicro
           tag_with_ref: true
           tag_with_sha: true
