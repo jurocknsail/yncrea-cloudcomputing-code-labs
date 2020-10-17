@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.yncrea</groupId>
-	<artifactId>cloudcomputing</artifactId>
+	<artifactId>yncrea-hellomicro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cloudcomputing</name>
 	<description>Demo project for Spring Boot</description>
@@ -123,7 +123,7 @@
 						<phase>pre-integration-test</phase>
 						<configuration>
 							<executable>helm</executable>
-							<commandlineArgs>delete silly-unicorn --purge</commandlineArgs>
+							<commandlineArgs>delete silly-unicorn</commandlineArgs>
 							<successCodes>
 								<successCode>0</successCode>
 								<successCode>1</successCode>
@@ -138,7 +138,7 @@
 						<phase>pre-integration-test</phase>
 						<configuration>
 							<executable>helm</executable>
-							<commandlineArgs>install ${project.build.directory}/${project.artifactId}-${project.version}.tgz --name silly-unicorn --wait --debug</commandlineArgs>
+							<commandlineArgs>install silly-unicorn ${project.build.directory}/${project.artifactId}-${project.version}.tgz</commandlineArgs>
 						</configuration>
 						<goals>
 							<goal>exec</goal>
